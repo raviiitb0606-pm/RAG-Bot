@@ -1,0 +1,18 @@
+# Only what the Dockerfile copies is needed; keep secrets, data and page copies out.
+.git
+.github
+.venv
+.env
+.env.*
+!.env.example
+data/
+corpus/raw/
+docs/
+tests/
+scripts/inspect_embeddings.py
+stitch_fund_facts_assistant_ui/
+.coverage
+.pytest_cache
+.ruff_cache
+.DS_Store
+**/__pycache__

@@ -1,0 +1,17 @@
+# Generated data and fetched pages (P0.7)
+data/
+corpus/raw/
+
+# Secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# OS / tooling
+.DS_Store
+.coverage

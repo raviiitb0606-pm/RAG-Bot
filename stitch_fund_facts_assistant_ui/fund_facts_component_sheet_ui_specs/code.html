@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-low":"#191c21","primary-container":"#2dd4a7","on-tertiary-container":"#434c59","surface-container-lowest":"#0b0e13","surface-variant":"#32353a","inverse-on-surface":"#2e3036","surface-bright":"#36393f","secondary-fixed-dim":"#fcbb49","on-tertiary":"#28313d","on-primary-fixed-variant":"#00513d","background":"#111319","surface-container-high":"#272a30","on-primary":"#003829","tertiary-container":"#b4bdcc","primary":"#56f1c2","on-surface":"#e1e2e9","surface-dim":"#111319","on-background":"#e1e2e9","on-primary-container":"#005742","surface-container":"#1d2025","on-surface-variant":"#bbcac2","outline-variant":"#3c4a44","on-primary-fixed":"#002117","on-error":"#690005","on-secondary-container":"#3a2600","on-tertiary-fixed-variant":"#3e4754","inverse-surface":"#e1e2e9","surface":"#111319","secondary-container":"#bf8612","primary-fixed":"#63fccc","tertiary":"#d0d9e9","error-container":"#93000a","secondary-fixed":"#ffdead","on-secondary-fixed-variant":"#604100","on-secondary":"#432c00","tertiary-fixed-dim":"#bec7d7","outline":"#85948d","inverse-primary":"#006c52","secondary":"#fcbb49","on-error-container":"#ffdad6","surface-tint":"#3edeb1","error":"#ffb4ab","on-secondary-fixed":"#281900","primary-fixed-dim":"#3edeb1","surface-container-highest":"#32353a","tertiary-fixed":"#dae3f3","on-tertiary-fixed":"#131c28"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-lg":"1.25rem","gutter-desktop":"1.5rem","space-sm":"0.5rem","margin-desktop":"2rem","space-xs":"0.25rem","margin":"1rem","space-xl":"2rem","gutter":"1rem","space-md":"0.75rem"},fontFamily:{"data-tabular-md":["Inter"],"body-sm":["Inter"],"body-md":["Inter"],"label-sm":["Inter"],"label-md":["Inter"],"label-lg":["Inter"],"data-tabular-lg":["Inter"],"headline-md":["Inter"],"body-lg":["Inter"],"headline-lg":["Inter"],"headline-sm":["Inter"]},fontSize:{"data-tabular-md":["0.875rem",{"lineHeight":"1.25rem","letterSpacing":"0.02em","fontWeight":"500"}],"body-sm":["0.75rem",{"lineHeight":"1.25rem","letterSpacing":"0.01em","fontWeight":"400"}],"body-md":["0.875rem",{"lineHeight":"1.45rem","letterSpacing":"0em","fontWeight":"400"}],"label-sm":["0.6875rem",{"lineHeight":"0.875rem","letterSpacing":"0.03em","fontWeight":"500"}],"label-md":["0.75rem",{"lineHeight":"1rem","letterSpacing":"0.02em","fontWeight":"500"}],"label-lg":["0.875rem",{"lineHeight":"1.25rem","letterSpacing":"0.01em","fontWeight":"500"}],"data-tabular-lg":["1.125rem",{"lineHeight":"1.5rem","letterSpacing":"0.01em","fontWeight":"600"}],"headline-md":["1.25rem",{"lineHeight":"1.75rem","letterSpacing":"-0.015em","fontWeight":"600"}],"body-lg":["1rem",{"lineHeight":"1.6rem","letterSpacing":"0em","fontWeight":"400"}],"headline-lg":["1.75rem",{"lineHeight":"2.25rem","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-sm":["1rem",{"lineHeight":"1.5rem","letterSpacing":"-0.01em","fontWeight":"600"}]}}}}</script></head><body class="bg-surface-container-lowest text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen"><div class="fixed top-0 left-0 right-0 z-50 h-8 bg-[#231805] border-b border-[#4A340E] flex items-center justify-center px-4"><div class="flex items-center gap-space-xs text-[#F5B544] font-label-md text-label-md"><span class="material-symbols-outlined text-[15px] leading-none">warning</span><span>Facts-only. No investment advice.</span></div></div><aside class="fixed left-0 top-8 bottom-0 w-[280px] bg-surface-container-low border-r border-[#2A303A] z-40 flex flex-col justify-between"><div class="flex flex-col"><div class="p-space-md border-b border-[#2A303A]"><div class="flex items-center justify-between mb-space-sm"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary text-[20px]">query_stats</span><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-semibold">Fund Facts</span></div><span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">HDFC 5 Schemes</span></div><button class="w-full flex items-center justify-center gap-space-xs py-space-sm px-space-md rounded bg-surface-container hover:bg-surface-container-high text-on-surface hover:text-on-surface transition-colors border border-[#2A303A] font-label-md text-label-md" type="button"><span class="material-symbols-outlined text-[18px]">add</span><span>New chat</span></button></div><div class="px-space-md pt-space-md pb-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Recent Inquiries</span></div><nav class="flex-1 px-space-sm flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-230px)]" data-active-classes="bg-surface-container text-on-surface border-l-2 border-primary"><a aria-current="page" class="group flex items-start justify-between p-space-sm rounded transition-colors bg-surface-container text-on-surface border-l-2 border-primary" data-path="fund-facts-chat" href="#"><div class="flex flex-col min-w-0 pr-space-xs"><span class="font-body-md text-body-md truncate">HDFC Top 100 Expense Ratio</span><span class="font-body-sm text-body-sm text-outline mt-0.5">10m ago</span></div><button aria-label="Delete thread" class="opacity-0 group-hover:opacity-100 text-outline hover:text-error transition-opacity p-0.5" type="button"><span class="material-symbols-outlined text-[16px]">delete</span></button></a><a class="group flex items-start justify-between p-space-sm rounded transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-path="scheme-comparison" href="#"><div class="flex flex-col min-w-0 pr-space-xs"><span class="font-body-md text-body-md truncate">Small Cap vs Mid Cap AUM</span><span class="font-body-sm text-body-sm text-outline mt-0.5">Yesterday</span></div><button aria-label="Delete thread" class="opacity-0 group-hover:opacity-100 text-outline hover:text-error transition-opacity p-0.5" type="button"><span class="material-symbols-outlined text-[16px]">delete</span></button></a><a class="group flex items-start justify-between p-space-sm rounded transition-colors text-on-surface-variant hover:bg-surface-container hover:text-on-surface" data-path="silver-etf-facts" href="#"><div class="flex flex-col min-w-0 pr-space-xs"><span class="font-body-md text-body-md truncate">Silver ETF FoF Benchmark & Tracking</span><span class="font-body-sm text-body-sm text-outline mt-0.5">3d ago</span></div><button aria-label="Delete thread" class="opacity-0 group-hover:opacity-100 text-outline hover:text-error transition-opacity p-0.5" type="button"><span class="material-symbols-outlined text-[16px]">delete</span></button></a></nav></div><div class="p-space-md border-t border-[#2A303A] bg-surface-container-low"><div class="flex items-center gap-space-xs text-outline font-body-sm text-body-sm"><span class="material-symbols-outlined text-[16px]">lock_clock</span><span>Chats are kept for 30 days.</span></div></div></aside><div class="pl-[280px]"><header class="fixed top-8 left-[280px] right-0 h-14 bg-surface-container-lowest/90 backdrop-blur-md border-b border-[#2A303A] z-30 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><span class="font-label-lg text-label-lg text-on-surface font-medium truncate max-w-sm">HDFC Top 100 Expense Ratio</span><div class="flex items-center gap-1.5 px-space-xs py-0.5 rounded-full bg-surface-container text-on-surface-variant border border-[#2A303A] font-label-sm text-label-sm"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span><span>Online • Grounded in Groww data</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md px-space-sm py-1 rounded bg-surface-container border border-[#2A303A] text-on-surface-variant"><span class="material-symbols-outlined text-[16px] text-primary">tune</span><span>5 Active Schemes</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-22 pb-44 min-h-screen bg-surface-container-lowest"><div class="max-w-4xl mx-auto px-space-lg py-space-md"><div class="flex flex-col w-full gap-space-xl">
+<!-- Spec Sheet Header Banner -->
+<section class="relative overflow-hidden rounded-xl bg-surface-container p-space-lg shadow-xl">
+<div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
+<div class="relative flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-primary/10 text-primary font-label-sm text-label-sm uppercase tracking-wider">UI Specification v2.4</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">•</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">High-Precision Financial Terminal</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Fund Facts • System Anatomy & Component Kit</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Complete living design specifications for the HDFC factual verification model. Crafted with strict typography pairings, amber disclaimers, tabular numerical alignment, and conversational states.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-2 px-space-md py-1.5 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span>Tokens Grounded (5 Schemes)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 1: Color Palette & Typography Tokens -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-4 bg-primary rounded-full"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">01. Color Foundations & Tabular Metrics</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Base #0F1217 Engine</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-space-md">
+<!-- Swatch 1 -->
+<div class="flex flex-col rounded-xl bg-surface-container-low p-space-md gap-space-xs shadow-md">
+<div class="w-full h-12 rounded bg-surface-container-lowest"></div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Canvas Dark</span>
+<span class="font-label-sm text-label-sm text-outline">#0F1217 / lowest</span>
+</div>
+<!-- Swatch 2 -->
+<div class="flex flex-col rounded-xl bg-surface-container-low p-space-md gap-space-xs shadow-md">
+<div class="w-full h-12 rounded bg-surface-container"></div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Surface Card</span>
+<span class="font-label-sm text-label-sm text-outline">#171B22 / container</span>
+</div>
+<!-- Swatch 3 -->
+<div class="flex flex-col rounded-xl bg-surface-container-low p-space-md gap-space-xs shadow-md">
+<div class="w-full h-12 rounded bg-surface-container-high"></div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Interactive</span>
+<span class="font-label-sm text-label-sm text-outline">#1E232C / high</span>
+</div>
+<!-- Swatch 4 -->
+<div class="flex flex-col rounded-xl bg-surface-container-low p-space-md gap-space-xs shadow-md">
+<div class="w-full h-12 rounded bg-primary-container"></div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Teal Accent</span>
+<span class="font-label-sm text-label-sm text-primary">#2DD4A7 / primary</span>
+</div>
+<!-- Swatch 5 -->
+<div class="flex flex-col rounded-xl bg-surface-container-low p-space-md gap-space-xs shadow-md">
+<div class="w-full h-12 rounded bg-secondary-container"></div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Amber Notice</span>
+<span class="font-label-sm text-label-sm text-secondary">#F5B544 / warn</span>
+</div>
+<!-- Swatch 6 -->
+<div class="flex flex-col rounded-xl bg-surface-container-low p-space-md gap-space-xs shadow-md">
+<div class="w-full h-12 rounded bg-surface-variant"></div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Boundary Line</span>
+<span class="font-label-sm text-label-sm text-outline">#2A303A / variant</span>
+</div>
+</div>
+<!-- Typography Specs and Tabular Proof -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+<!-- Text Hierarchy Card -->
+<div class="flex flex-col rounded-xl bg-surface-container p-space-lg gap-space-md shadow-md">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Typography Hierarchy</span>
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-baseline justify-between pb-2">
+<span class="font-headline-lg text-headline-lg text-on-surface">Display Headline</span>
+<span class="font-label-sm text-label-sm text-outline">headline-lg / 28px</span>
+</div>
+<div class="flex items-baseline justify-between pb-2">
+<span class="font-headline-md text-headline-md text-on-surface">Section Accent Title</span>
+<span class="font-label-sm text-label-sm text-outline">headline-md / 20px</span>
+</div>
+<div class="flex items-baseline justify-between pb-2">
+<span class="font-body-md text-body-md text-on-surface-variant">Standard factual answer paragraph stream body copy</span>
+<span class="font-label-sm text-label-sm text-outline">body-md / 14px</span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-body-sm text-body-sm text-outline">Footnote metadata and legal disclaimers</span>
+<span class="font-label-sm text-label-sm text-outline">body-sm / 12px</span>
+</div>
+</div>
+</div>
+<!-- Tabular Precision Showcase -->
+<div class="flex flex-col justify-between rounded-xl bg-surface-container-high p-space-lg shadow-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Strict Tabular Alignment Test</span>
+<span class="material-symbols-outlined text-primary text-[18px]">query_stats</span>
+</div>
+<div class="flex flex-col gap-space-xs py-space-sm">
+<p class="font-body-sm text-body-sm text-on-surface-variant">Standardized zero-proportional drift formatting for financial indicators:</p>
+<div class="p-space-md rounded-lg bg-surface-container-lowest font-data-tabular-lg text-data-tabular-lg text-primary tracking-wide">
+            ₹50,000 • 0.76% • 25 Oct 2026 • 365 Days
+          </div>
+</div>
+<div class="grid grid-cols-4 gap-space-xs pt-space-xs text-center font-data-tabular-md text-data-tabular-md">
+<div class="p-space-xs rounded bg-surface-container text-on-surface">NAV: 948.12</div>
+<div class="p-space-xs rounded bg-surface-container text-on-surface">TER: 0.81%</div>
+<div class="p-space-xs rounded bg-surface-container text-on-surface">AUM: 64.2K Cr</div>
+<div class="p-space-xs rounded bg-surface-container text-on-surface">Exit: 1.00%</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Persistent Top Banner -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-4 bg-secondary rounded-full"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">02. Persistent Top Disclaimer Strip</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Mandatory Compliance</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="w-full rounded-lg bg-[#261C0D] p-space-md shadow-sm">
+<div class="flex items-center justify-center gap-space-xs text-[#F5B544] font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+<span class="font-medium tracking-wide">Facts-only. No investment advice.</span>
+</div>
+</div>
+<span class="font-body-sm text-body-sm text-outline px-1">Fixed strip pattern pinned to viewport summit or top of active frame. Zero dismissibility.</span>
+</div>
+</section>
+<!-- Section 3: Thread Sidebar States -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-4 bg-primary rounded-full"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">03. Thread Navigation Interactive States</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">3 Interactive Phases</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Default State -->
+<div class="flex flex-col rounded-xl bg-surface-container-low p-space-md gap-space-sm shadow-md">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Default / Inactive</span>
+<div class="flex items-start justify-between p-space-sm rounded-lg bg-transparent">
+<div class="flex flex-col min-w-0 pr-space-xs">
+<span class="font-body-md text-body-md text-on-surface-variant truncate">HDFC Large and Mid Cap Exit Load</span>
+<span class="font-body-sm text-body-sm text-outline mt-0.5">3 hours ago</span>
+</div>
+<span class="text-outline/40 material-symbols-outlined text-[16px]">chevron_right</span>
+</div>
+</div>
+<!-- Hover State -->
+<div class="flex flex-col rounded-xl bg-surface-container-low p-space-md gap-space-sm shadow-md">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Hover Simulated</span>
+<div class="flex items-start justify-between p-space-sm rounded-lg bg-surface-container shadow-sm">
+<div class="flex flex-col min-w-0 pr-space-xs">
+<span class="font-body-md text-body-md text-on-surface truncate">HDFC Small Cap 5-Year CAGR</span>
+<span class="font-body-sm text-body-sm text-outline mt-0.5">Active hover focus</span>
+</div>
+<button aria-label="Simulated delete" class="p-1 rounded text-error hover:bg-error/10 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Active State -->
+<div class="flex flex-col rounded-xl bg-surface-container-low p-space-md gap-space-sm shadow-md">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Active Selected</span>
+<div class="flex items-start justify-between p-space-sm rounded-lg bg-surface-container-high shadow-md">
+<div class="flex items-start gap-space-xs min-w-0 pr-space-xs">
+<div class="w-1 h-8 rounded-full bg-primary -ml-1"></div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-body-md text-on-surface font-semibold truncate">HDFC Top 100 Expense Ratio</span>
+<span class="font-body-sm text-body-sm text-primary mt-0.5">Currently reading</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-primary">forum</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Scheme Pills & Example Query Chips -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-4 bg-primary rounded-full"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">04. Scheme Filter Matrix & Query Prompts</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Canonical Scope</span>
+</div>
+<!-- 5 Scheme Pills -->
+<div class="flex flex-col rounded-xl bg-surface-container p-space-lg gap-space-md shadow-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">HDFC 5 Canonical Schemes (Filter Selectors)</span>
+<span class="font-label-sm text-label-sm text-primary">1 Active • 4 Default</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<!-- Selected Pill -->
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-primary/10 text-primary font-label-md text-label-md shadow-sm transition-all" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>HDFC Large Cap (Top 100)</span>
+</button>
+<!-- Unselected Pills -->
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-variant font-label-md text-label-md transition-colors" type="button">
+<span>HDFC Mid-Cap Opportunities</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-variant font-label-md text-label-md transition-colors" type="button">
+<span>HDFC Small Cap</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-variant font-label-md text-label-md transition-colors" type="button">
+<span>HDFC Multi Cap</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-variant font-label-md text-label-md transition-colors" type="button">
+<span>HDFC Silver ETF FoF</span>
+</button>
+</div>
+<div class="pt-space-sm">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider block mb-space-xs">Pre-Engineered Query Suggestions</span>
+<div class="flex flex-wrap gap-space-xs">
+<button class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-lowest hover:bg-surface-variant text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px] text-primary">search</span>
+<span>What is the TER of HDFC Small Cap Direct Plan?</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-lowest hover:bg-surface-variant text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px] text-primary">search</span>
+<span>Current Fund Manager for Multi Cap Scheme</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-lowest hover:bg-surface-variant text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px] text-primary">search</span>
+<span>Exit load on Silver ETF FoF units before 15 days</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: Chat Bubble Anatomy -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-4 bg-primary rounded-full"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">05. Conversational Anatomy & Factual Guardrails</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">User vs. Assistant Rules</span>
+</div>
+<div class="flex flex-col gap-space-lg rounded-xl bg-surface-container-lowest p-space-lg shadow-xl">
+<!-- User Query Bubble -->
+<div class="flex justify-end w-full">
+<div class="flex flex-col items-end gap-1 max-w-xl">
+<div class="rounded-xl rounded-tr-none bg-[#1E2E2A] text-on-surface p-space-md shadow-md">
+<p class="font-body-md text-body-md">
+              What is the current Total Expense Ratio (TER) of HDFC Top 100 Fund Direct Plan, and who manages it?
+            </p>
+</div>
+<span class="font-label-sm text-label-sm text-outline pr-1">10:42 AM • User Ingestion</span>
+</div>
+</div>
+<!-- Assistant Verification Card (Strict 3-Sentence constraint + Source meta) -->
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<div class="flex items-center gap-space-xs text-primary font-label-sm text-label-sm pb-1">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="uppercase tracking-wider font-semibold">Grounded Data Response</span>
+</div>
+<div class="flex flex-col rounded-xl bg-surface-container p-space-lg shadow-lg">
+<!-- 3-sentence body -->
+<div class="flex flex-col gap-space-sm text-on-surface font-body-md text-body-md leading-relaxed">
+<p>
+              As of October 2026, the Total Expense Ratio (TER) for the <span class="font-medium text-on-surface">HDFC Top 100 Fund (Direct Plan - Growth)</span> is <span class="font-data-tabular-md text-data-tabular-md text-primary font-semibold">1.09%</span> including GST.
+            </p>
+<p>
+              The fund is primarily co-managed by senior fund managers <span class="text-on-surface font-medium">Rahul Baijal</span> (Equity) and <span class="text-on-surface font-medium">Nirman Morakhia</span> (Arbitrage).
+            </p>
+<p>
+              The minimum additional investment amount is set at <span class="font-data-tabular-md text-data-tabular-md text-on-surface font-medium">₹100</span> with zero exit load applicable for redemptions beyond 30 days.
+            </p>
+</div>
+<!-- Structured Metric Grid -->
+<div class="grid grid-cols-3 gap-space-sm mt-space-md p-space-sm rounded-lg bg-surface-container-high">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Direct TER</span>
+<span class="font-data-tabular-md text-data-tabular-md text-primary">1.09%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Regular TER</span>
+<span class="font-data-tabular-md text-data-tabular-md text-on-surface">1.68%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Exit Window</span>
+<span class="font-data-tabular-md text-data-tabular-md text-on-surface">30 Days</span>
+</div>
+</div>
+<!-- Strict Footer Meta Hairline -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs mt-space-md pt-space-sm bg-surface-container">
+<div class="flex items-center gap-space-xs text-outline font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[15px]">schedule</span>
+<span>Last updated from sources: <span class="font-data-tabular-md text-data-tabular-md text-on-surface-variant">25 Oct 2026</span></span>
+</div>
+<a class="inline-flex items-center gap-1 text-primary hover:text-primary-container font-label-md text-label-md transition-colors" href="#">
+<span>HDFC AMC SID Filing</span>
+<span class="material-symbols-outlined text-[15px]">north_east</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 6: System Notice Variants -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-4 bg-primary rounded-full"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">06. System Notice Variants & Edge Disclosures</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Non-Advisory Guardrails</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- 1. Refusal Notice Card (Neutral Info, No Red) -->
+<div class="flex flex-col rounded-xl bg-surface-container p-space-lg shadow-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">info</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Scope Limitation: No Advice</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              I cannot advise on whether this scheme is suitable for your financial goals or provide predictive buy/sell recommendations. I can only deliver published facts, SID documents, NAVs, and ratios.
+            </p>
+</div>
+</div>
+</div>
+<!-- 2. Data Not Found Notice -->
+<div class="flex flex-col rounded-xl bg-surface-container p-space-lg shadow-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 text-outline">
+<span class="material-symbols-outlined text-[18px]">find_in_page</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Data Point Unavailable</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Couldn’t find that specific metric in the official scheme documentation or monthly factsheet records currently indexed.
+            </p>
+</div>
+</div>
+</div>
+<!-- 3. Scheme Clarification Card -->
+<div class="flex flex-col rounded-xl bg-surface-container p-space-lg shadow-md md:col-span-2">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">help_outline</span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Which scheme do you mean?</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Multiple HDFC funds match your search. Select one verified fund to view specific data:
+          </p>
+<div class="flex flex-wrap gap-space-xs pt-space-xs">
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md transition-colors" type="button">
+              HDFC Top 100 Fund
+            </button>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md transition-colors" type="button">
+              HDFC Mid-Cap Opportunities Fund
+            </button>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md transition-colors" type="button">
+              HDFC Small Cap Fund
+            </button>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md transition-colors" type="button">
+              HDFC Multi Cap Fund
+            </button>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md transition-colors" type="button">
+              HDFC Silver ETF Fund of Fund
+            </button>
+</div>
+</div>
+</div>
+<!-- 4. Privacy Notice -->
+<div class="flex items-start gap-space-sm rounded-xl bg-surface-container p-space-lg shadow-md">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Session Zero-Knowledge Policy</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Inquiries are processed anonymously against SEBI factsheets. Conversation history auto-expires in 30 days without external tracking.
+          </p>
+</div>
+</div>
+<!-- 5. Busy / Error State & 3-Pulse Loading State -->
+<div class="flex flex-col justify-between gap-space-md rounded-xl bg-surface-container p-space-lg shadow-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center shrink-0 text-secondary">
+<span class="material-symbols-outlined text-[18px]">hourglass_top</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">High Load Queue</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              I’m answering a lot of questions right now. Please hold on a moment…
+            </p>
+</div>
+</div>
+<!-- 3-Pulse Loading State Component -->
+<div class="flex items-center gap-space-xs pt-space-xs">
+<span class="font-label-sm text-label-sm text-outline">Assistant typing:</span>
+<div class="flex items-center gap-1.5 px-space-sm py-1.5 rounded bg-surface-container-lowest">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary opacity-60"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary opacity-30"></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 7: Standalone Pinned Composer Anatomy -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-4 bg-primary rounded-full"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">07. Interactive Composer Anatomy</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Input Docking Specs</span>
+</div>
+<div class="flex flex-col rounded-xl bg-surface-container-lowest p-space-lg shadow-2xl">
+<!-- Outer Composer Shell Mockup -->
+<div class="flex flex-col gap-space-sm rounded-xl bg-surface-container p-space-md shadow-md">
+<div class="relative flex flex-col gap-space-sm">
+<textarea class="w-full bg-transparent resize-none border-0 text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-0 p-0" placeholder="Type a factual query (e.g., 'What is HDFC Mid-Cap benchmark index?')..." rows="2">What is the expense ratio and NAV of HDFC Silver ETF FoF?</textarea>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm text-outline">
+<span class="font-data-tabular-md text-data-tabular-md text-primary">59/500</span>
+<span>• Strict factual query</span>
+</div>
+<button aria-label="Submit prompt" class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow hover:opacity-90 transition-opacity" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_upward</span>
+</button>
+</div>
+</div>
+</div>
+<p class="mt-space-sm text-center font-body-sm text-body-sm text-outline">
+        Don’t share PAN, Aadhaar, account number or OTP.
+      </p>
+</div>
+</section>
+<!-- Section 8: Modals, Toasts & Action Overlays -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-4 bg-primary rounded-full"></span>
+<h2 class="font-headline-md text-headline-md text-on-surface">08. Alerts, Modals & Toast Notifications</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Interactive Overlays</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- PII Interception Modal Component -->
+<div class="flex flex-col rounded-xl bg-surface-container p-space-lg shadow-2xl">
+<div class="flex items-center gap-space-xs text-[#F5B544] pb-space-xs">
+<span class="material-symbols-outlined text-[20px]">shield_person</span>
+<span class="font-headline-sm text-headline-sm font-semibold tracking-tight">PII Identifier Detected</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant pt-1">
+          Your message appears to contain a personal identifier (Aadhaar or PAN sequence). For compliance and privacy, remove personal records before transmitting.
+        </p>
+<div class="my-space-md p-space-sm rounded-lg bg-surface-container-lowest font-data-tabular-md text-data-tabular-md text-outline">
+          “...my PAN is <span class="text-error bg-error/10 px-1 rounded">ABCDE1234F</span> please check my folio...”
+        </div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-space-md py-space-sm rounded bg-transparent text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors" type="button">
+            Send anyway
+          </button>
+<button class="px-space-md py-space-sm rounded bg-primary text-on-primary hover:opacity-90 font-label-md text-label-md font-semibold transition-opacity shadow-sm" type="button">
+            Edit message
+          </button>
+</div>
+</div>
+<!-- Toast Feedback & Micro-States -->
+<div class="flex flex-col justify-between gap-space-md rounded-xl bg-surface-container-high p-space-lg shadow-lg">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Transient Notification Anatomy</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Low-profile confirmation toasts displayed bottom-right upon non-destructive queue manipulations.
+          </p>
+</div>
+<!-- Sample Toast Component -->
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-lowest text-on-surface shadow-2xl">
+<div class="flex items-center gap-space-xs font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+<span>Chat thread deleted</span>
+</div>
+<button class="font-label-md text-label-md text-primary hover:underline px-space-xs" type="button">
+            Undo
+          </button>
+</div>
+<!-- Secondary Inline Notice -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span>Cache validity: 4 hours remaining</span>
+<span class="font-data-tabular-md text-data-tabular-md text-primary">v1.0.4-live</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script>
+  // Simple micro-interaction behavior for demo interactions
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      if (!this.getAttribute('aria-label')) {
+        // Soft click feedback
+        this.classList.add('scale-[0.98]');
+        setTimeout(() => this.classList.remove('scale-[0.98]'), 150);
+      }
+    });
+  });
+</script></div></main><div class="fixed bottom-0 left-[280px] right-0 z-30 pointer-events-none pb-space-lg px-space-lg bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/90 to-transparent pt-6"><div class="max-w-4xl mx-auto pointer-events-auto"><div class="rounded-xl bg-[#171B22] border border-[#2A303A] shadow-[0_12px_32px_-4px_rgba(0,0,0,0.65)] p-space-md"><div class="relative flex flex-col gap-space-sm"><textarea class="w-full bg-transparent resize-none border-0 text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-0 p-0" placeholder="Ask a factual question…" rows="2"></textarea><div class="flex items-center justify-between pt-space-xs border-t border-[#2A303A]/60"><div class="flex items-center gap-space-sm font-label-sm text-label-sm text-outline"><span class="font-data-tabular-md text-data-tabular-md">48/500</span><span>• Fact-lookup only</span></div><button aria-label="Send message" class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-primary transition-colors focus:ring-2 focus:ring-primary/40 focus:outline-none" type="button"><span class="material-symbols-outlined text-[18px]">arrow_upward</span></button></div></div></div><p class="mt-space-xs text-center font-body-sm text-body-sm text-[#6B7480]">Don't share PAN, Aadhaar, account number or OTP.</p></div></div></div></body></html>

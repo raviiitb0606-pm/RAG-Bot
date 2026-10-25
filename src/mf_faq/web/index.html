@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Facts-only answers about 5 HDFC Mutual Fund schemes, from their Groww scheme pages. No investment advice.">
+  <title>Fund Facts</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#input">Skip to question box</a>
+
+  <!-- UI-3, DL-2: always visible -->
+  <div class="banner" role="note">
+    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2 21h20L12 3Z"/><path d="M12 10v5M12 18v.01"/></svg>
+    <span id="disclaimer">Facts-only. No investment advice.</span>
+  </div>
+
+  <div class="shell">
+    <aside id="sidebar" class="sidebar" aria-label="Chats">
+      <div class="brand">
+        <svg class="brand-mark" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 17l5-6 4 4 4-6"/><circle cx="18.5" cy="15.5" r="3"/><path d="m21 18 2 2"/></svg>
+        <span class="brand-name">Fund Facts</span>
+        <span class="chip chip-teal">5 schemes</span>
+        <button id="close-drawer" class="icon-btn drawer-only" type="button" aria-label="Close chats">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <button id="new-chat" class="btn btn-outline btn-block" type="button">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        New chat
+      </button>
+      <nav class="threads" aria-labelledby="threads-heading">
+        <h2 id="threads-heading" class="eyebrow">Recent chats</h2>
+        <ul id="thread-list" class="thread-list"></ul>
+        <p id="threads-empty" class="threads-empty">No chats yet. Ask a question to start one.</p>
+      </nav>
+      <p class="sidebar-foot">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        <span id="retention">Chats are kept for 30 days.</span>
+      </p>
+    </aside>
+    <div id="scrim" class="scrim" hidden></div>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="open-drawer" class="icon-btn drawer-only" type="button" aria-label="Open chats" aria-controls="sidebar" aria-expanded="false">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <h1 id="thread-title" class="thread-title">New chat</h1>
+        <span class="status-pill"><span class="dot" aria-hidden="true"></span><span class="status-text">Grounded in Groww scheme pages</span></span>
+      </header>
+
+      <section id="chat" class="chat" aria-label="Conversation">
+        <div class="chat-inner">
+          <!-- UI-1, UI-2: shown in every empty thread -->
+          <div id="welcome" class="welcome">
+            <div class="hero">
+              <h2 class="hero-title">HDFC Scheme Fact Assistant</h2>
+              <p id="welcome-text" class="hero-text">Welcome! I answer factual questions about 5 HDFC Mutual Fund schemes, using their Groww scheme pages.</p>
+              <ul class="assurances" aria-label="How answers work">
+                <li><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>Answers from the scheme pages only</li>
+                <li><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg>No advice or returns</li>
+                <li><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M10 14 21 3M15 3h6v6M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>One source link per answer</li>
+              </ul>
+            </div>
+
+            <section class="card schemes-card" aria-labelledby="schemes-heading">
+              <div class="card-head">
+                <h3 id="schemes-heading" class="eyebrow eyebrow-icon">
+                  <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M19 21V10M9 21V10M15 21V10M2 10l10-6 10 6"/></svg>
+                  <span>Supported schemes (<span id="scheme-count">5</span>)</span>
+                </h3>
+                <span class="chip">Direct · Growth</span>
+              </div>
+              <ul id="scheme-list" class="pill-list"></ul>
+            </section>
+
+            <section aria-labelledby="examples-heading">
+              <div class="section-head">
+                <h3 id="examples-heading" class="eyebrow">Try a question</h3>
+                <span class="muted small">Click to ask</span>
+              </div>
+              <ul id="example-list" class="examples"></ul>
+            </section>
+
+            <aside class="card note">
+              <svg class="note-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+              <div>
+                <p class="note-title">How answers are grounded</p>
+                <p class="note-text">Every reply links one of the 5 Groww scheme pages and shows when that page was last updated. Investment advice, return figures and fund comparisons are not provided.</p>
+              </div>
+            </aside>
+          </div>
+
+          <ol id="messages" class="messages" aria-live="polite" aria-relevant="additions"></ol>
+        </div>
+      </section>
+
+      <form id="composer" class="composer" novalidate>
+        <div class="composer-box">
+          <label for="input" class="sr-only">Ask a factual question</label>
+          <textarea id="input" rows="2" maxlength="500" placeholder="Ask a factual question…" aria-describedby="pii-hint counter" autocomplete="off"></textarea>
+          <div class="composer-row">
+            <span class="composer-meta"><span id="counter" class="counter">0/500</span><span class="sep" aria-hidden="true">·</span>Fact-lookup only</span>
+            <button id="send" class="send" type="submit" aria-label="Send" disabled>
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </button>
+          </div>
+        </div>
+        <p id="pii-hint" class="hint">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/></svg>
+          <span id="pii-hint-text">Don't share PAN, Aadhaar, account number or OTP.</span>
+        </p>
+      </form>
+    </main>
+  </div>
+
+  <!-- P8.5: client-side PII pre-check (the server check is the real one) -->
+  <dialog id="pii-dialog" class="modal" aria-labelledby="pii-title" aria-describedby="pii-body">
+    <div class="modal-head">
+      <span class="modal-badge" aria-hidden="true">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="M12 8v4M12 15v.01"/></svg>
+      </span>
+      <div>
+        <h2 id="pii-title" class="modal-title">Personal information detected</h2>
+        <p class="modal-sub"><span class="dot dot-amber" aria-hidden="true"></span>Checked in your browser before sending</p>
+      </div>
+      <button id="pii-close" class="icon-btn" type="button" aria-label="Close">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <p id="pii-body" class="modal-text">This looks like personal information. Fund Facts answers questions about public scheme pages and never needs your personal details.</p>
+    <div class="flagged">
+      <div class="flagged-head">
+        <span class="eyebrow">Your message</span>
+        <span id="pii-types" class="chip chip-error"></span>
+      </div>
+      <p id="pii-preview" class="flagged-text"></p>
+      <p class="flagged-note">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v.01M12 11v5"/></svg>
+        If you send it anyway, the server blocks the question and keeps only a masked copy.
+      </p>
+    </div>
+    <div class="modal-actions">
+      <button id="pii-send" class="btn btn-ghost" type="button">Send anyway</button>
+      <button id="pii-edit" class="btn btn-primary" type="button" autofocus>
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/></svg>
+        Edit message
+      </button>
+    </div>
+    <p class="modal-foot">Never share PAN, Aadhaar, bank details or OTPs in a chat.</p>
+  </dialog>
+</body>
+</html>

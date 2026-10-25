@@ -1,0 +1,537 @@
+# Retrieval query sets (P3.5), merged from the Phase 3 data research (docs/research/phase3/queries.py).
+#
+# `mf-faq eval --retrieval-only` runs these together with the answer / not_found / multi_scheme
+# cases of golden.yaml, through the real scheme resolver, not-found layers and retriever. The
+# same eval is the swap gate of `mf-faq index` (P3.1). Same fields as golden.yaml:
+#   expect_kind   answer | not_found | needs_scheme | multi_scheme
+#   expect_source registry id of the page whose chunk must be retrieved (answer cases)
+#   fact          a key from that scheme's available_facts; a hit is a retrieved chunk with it
+#   must_contain  optional: the hit chunk must also contain these (holdings in a later part)
+#
+# Sets:
+#   paraphrase    hand-written questions that avoid the section labels on purpose
+#   heldout       written before any chunk or BM25 variant was tried; never used to pick the
+#                 "Covers" wording (schemes.yaml fact_groups)
+#   holdings      holdings questions whose answer is in a specific part of a split holdings list
+#   ooc_scheme    out of corpus with a supported scheme named: layers C/D must stop them
+#   ooc_general   out of corpus with no supported scheme: layers A/B must stop them
+#   near_miss     the right section matches but the thing asked isn't on the page. Retrieval
+#                 can't tell (research §3.5); reported only, left to the LLM (Phase 5, P9)
+#
+# Caveat (research §5): one person wrote these questions, the Covers wording and the lexicon.
+# P9.1 adds cases written by someone else.
+
+
+paraphrase:  # 48 questions
+  - id: RP-01
+    q: "How much does HDFC Mid Cap Fund charge every year to manage my money?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: expense_ratio
+  - id: RP-02
+    q: "What's the TER on HDFC Large Cap direct?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: expense_ratio
+  - id: RP-03
+    q: "annual fees for hdfc silver fof"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: expense_ratio
+  - id: RP-04
+    q: "What is the total expense ratio of the multi cap fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: expense_ratio
+  - id: RP-05
+    q: "Is there a penalty if I withdraw from HDFC Small Cap Fund early?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: exit_load
+  - id: RP-06
+    q: "Will I be charged if I sell my HDFC Silver ETF FoF units after a week?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: exit_load
+  - id: RP-07
+    q: "redemption charges hdfc multi cap"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: exit_load
+  - id: RP-08
+    q: "What's the smallest amount I can start a monthly SIP with in HDFC Large Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: min_sip
+  - id: RP-09
+    q: "How much money do I need to invest in HDFC Multi Cap Fund the first time?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: min_sip
+  - id: RP-10
+    q: "Can I top up HDFC Small Cap Fund with a small amount later? what's the minimum?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: min_sip
+  - id: RP-11
+    q: "min investment hdfc midcap"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: min_sip
+  - id: RP-12
+    q: "How risky is HDFC Small Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: category
+  - id: RP-13
+    q: "What type of fund is HDFC Silver ETF FoF?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: category
+  - id: RP-14
+    q: "riskometer hdfc large cap"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: category
+  - id: RP-15
+    q: "Which category does HDFC Multi Cap Fund belong to?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: category
+  - id: RP-16
+    q: "What is the current price of one unit of HDFC Large Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: nav
+  - id: RP-17
+    q: "Today's NAV of hdfc silver fof?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: nav
+  - id: RP-18
+    q: "How big is HDFC Small Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: fund_size
+  - id: RP-19
+    q: "What is the AUM of HDFC Large Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: fund_size
+  - id: RP-20
+    q: "How much money is managed in HDFC Silver ETF FoF?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: fund_size
+  - id: RP-21
+    q: "Is there any stamp duty when I buy HDFC Mid Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: stamp_duty
+  - id: RP-22
+    q: "What government charge applies on purchase of HDFC Multi Cap Fund units?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: stamp_duty
+  - id: RP-23
+    q: "What is the STCG tax on HDFC Large Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: tax_implication
+  - id: RP-24
+    q: "How much tax do I pay on long term gains from HDFC Mid Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: tax_implication
+  - id: RP-25
+    q: "Is HDFC Silver ETF FoF taxed like an equity fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: tax_implication
+  - id: RP-26
+    q: "Who runs HDFC Small Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: fund_managers
+  - id: RP-27
+    q: "Since when has Chirag Setalvad managed HDFC Mid Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: fund_managers
+  - id: RP-28
+    q: "What is the educational background of the fund manager of HDFC Large Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: fund_managers
+  - id: RP-29
+    q: "Who is the portfolio manager for the silver fof?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: fund_managers
+  - id: RP-30
+    q: "What is the aim of HDFC Multi Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: investment_objective
+  - id: RP-31
+    q: "What is HDFC Large Cap Fund trying to achieve?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: investment_objective
+  - id: RP-32
+    q: "Where does HDFC Silver ETF FoF put its money?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: investment_objective
+  - id: RP-33
+    q: "Which index does HDFC Small Cap Fund track?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: benchmark
+  - id: RP-34
+    q: "What is HDFC Silver ETF FoF compared against?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: benchmark
+  - id: RP-35
+    q: "hdfc large cap bench mark"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: benchmark
+  - id: RP-36
+    q: "What are the top holdings of HDFC Mid Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: holdings
+  - id: RP-37
+    q: "Which stocks does HDFC Large Cap Fund own?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: holdings
+  - id: RP-38
+    q: "Does HDFC Multi Cap Fund hold Zomato?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: holdings
+  - id: RP-39
+    q: "How many stocks are in the HDFC Small Cap portfolio?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: holdings
+  - id: RP-40
+    q: "What percentage of HDFC Silver ETF FoF is in the Silver ETF?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: holdings
+  - id: RP-41
+    q: "How much of HDFC Large Cap Fund is invested in ICICI Bank?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: holdings
+  - id: RP-42
+    q: "What is the phone number of the AMC for HDFC Mid Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: fund_house
+  - id: RP-43
+    q: "Which company manages HDFC Small Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: fund_house
+  - id: RP-44
+    q: "What is the address of HDFC Mutual Fund?"
+    expect_kind: needs_scheme  # names only the fund house; P4.3 may answer it later
+  - id: RP-45
+    q: "Who is the RTA for HDFC Multi Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: registrar
+  - id: RP-46
+    q: "Who handles the transfer agency for HDFC Silver ETF FoF?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: registrar
+  - id: RP-47
+    q: "Which bank is the custodian of HDFC Large Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: custodian
+  - id: RP-48
+    q: "Who keeps the securities of HDFC Small Cap Fund in safe custody?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: custodian
+
+heldout:  # 30 questions
+  - id: RH-01
+    q: "What do I pay yearly to stay invested in HDFC Small Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: expense_ratio
+  - id: RH-02
+    q: "expense ratio for hdfc large cap?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: expense_ratio
+  - id: RH-03
+    q: "Silver FoF ongoing cost percentage"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: expense_ratio
+  - id: RH-04
+    q: "If I exit HDFC Large Cap Fund in 6 months do I lose anything?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: exit_load
+  - id: RH-05
+    q: "Any charges for leaving the mid cap fund before a year?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: exit_load
+  - id: RH-06
+    q: "Can I start HDFC Silver ETF FoF with Rs 100?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: min_sip
+  - id: RH-07
+    q: "Lowest SIP allowed in the multi cap scheme?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: min_sip
+  - id: RH-08
+    q: "Is HDFC Mid Cap Fund high risk or low risk?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: category
+  - id: RH-09
+    q: "Is HDFC Large Cap an equity fund or a debt fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: category
+  - id: RH-10
+    q: "What's the unit value of the small cap fund right now?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: nav
+  - id: RH-11
+    q: "net asset value hdfc mid cap"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: nav
+  - id: RH-12
+    q: "Total assets of HDFC Multi Cap Fund in crores?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: fund_size
+  - id: RH-13
+    q: "How large is the mid cap fund's corpus?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: fund_size
+  - id: RH-14
+    q: "Do I pay stamp duty on SIP instalments in HDFC Silver ETF FoF?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: stamp_duty
+  - id: RH-15
+    q: "If I sell HDFC Small Cap Fund after two years how is the gain taxed?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: tax_implication
+  - id: RH-16
+    q: "capital gains tax rate multi cap fund"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: tax_implication
+  - id: RH-17
+    q: "Who takes the investment decisions for HDFC Multi Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: fund_managers
+  - id: RH-18
+    q: "What experience does the HDFC Silver ETF FoF manager have?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: fund_managers
+  - id: RH-19
+    q: "What is the goal of the HDFC Mid Cap scheme?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: investment_objective
+  - id: RH-20
+    q: "What does HDFC Small Cap Fund invest in?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: investment_objective
+  - id: RH-21
+    q: "What index is HDFC Mid Cap Fund measured against?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: benchmark
+  - id: RH-22
+    q: "benchmark of silver fof"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: benchmark
+  - id: RH-23
+    q: "Biggest positions in HDFC Small Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: holdings
+  - id: RH-24
+    q: "Does the mid cap fund invest in Timken India?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: holdings
+  - id: RH-25
+    q: "Is Reliance Industries part of HDFC Multi Cap Fund's portfolio?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: holdings
+  - id: RH-26
+    q: "Contact details for the fund house of HDFC Large Cap Fund"
+    expect_kind: answer
+    expect_source: groww-hdfc-large-cap
+    fact: fund_house
+  - id: RH-27
+    q: "Who is the AMC behind HDFC Silver ETF FoF?"
+    expect_kind: answer
+    expect_source: groww-hdfc-silver-etf-fof
+    fact: fund_house
+  - id: RH-28
+    q: "Who is the registrar of HDFC Small Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: registrar
+  - id: RH-29
+    q: "Where is CAMS located for HDFC Mid Cap Fund?"
+    expect_kind: answer
+    expect_source: groww-hdfc-mid-cap
+    fact: registrar
+  - id: RH-30
+    q: "custodian bank hdfc small cap"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: custodian
+
+holdings:
+  - id: RD-01
+    q: "Does HDFC Small Cap Fund hold Goodyear India?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: holdings
+    must_contain: ["Goodyear India"]
+  - id: RD-02
+    q: "What weight does HDFC Small Cap Fund give Sula Vineyards?"
+    expect_kind: answer
+    expect_source: groww-hdfc-small-cap
+    fact: holdings
+    must_contain: ["Sula Vineyards"]
+  - id: RD-03
+    q: "Does HDFC Multi Cap Fund own Timken India?"
+    expect_kind: answer
+    expect_source: groww-hdfc-multi-cap
+    fact: holdings
+    must_contain: ["Timken India"]
+
+ooc_scheme:
+  - id: RO-01
+    q: "Does HDFC Mid Cap Fund have a lock-in period?"
+    expect_kind: not_found
+  - id: RO-02
+    q: "When was HDFC Mid Cap Fund launched?"
+    expect_kind: not_found
+  - id: RO-03
+    q: "What is the Groww rating of HDFC Multi Cap Fund?"
+    expect_kind: not_found
+  - id: RO-04
+    q: "How can I get my account statement for HDFC Mid Cap Fund?"
+    expect_kind: not_found
+  - id: RO-05
+    q: "What is the minimum redemption amount for HDFC Large Cap Fund?"
+    expect_kind: not_found
+  - id: RO-06
+    q: "What is the portfolio turnover ratio of HDFC Small Cap Fund?"
+    expect_kind: not_found
+  - id: RO-07
+    q: "What is the Sharpe ratio of HDFC Multi Cap Fund?"
+    expect_kind: not_found
+  - id: RO-08
+    q: "What is the standard deviation of HDFC Mid Cap Fund?"
+    expect_kind: not_found
+  - id: RO-09
+    q: "Does HDFC Large Cap Fund have an IDCW option?"
+    expect_kind: not_found
+  - id: RO-10
+    q: "How do I redeem my units of HDFC Small Cap Fund?"
+    expect_kind: not_found
+  - id: RO-11
+    q: "Which SIP dates are available for HDFC Large Cap Fund?"
+    expect_kind: not_found
+  - id: RO-12
+    q: "Can I set up an SWP in HDFC Silver ETF FoF?"
+    expect_kind: not_found
+  - id: RO-13
+    q: "What is the P/E ratio of HDFC Large Cap Fund?"
+    expect_kind: not_found
+  - id: RO-14
+    q: "What is the tracking error of HDFC Silver ETF FoF?"
+    expect_kind: not_found
+  - id: RO-15
+    q: "How do I add a nominee to my HDFC Mid Cap Fund folio?"
+    expect_kind: not_found
+  - id: RO-16
+    q: "Who is the CEO of the AMC of HDFC Small Cap Fund?"
+    expect_kind: not_found
+
+ooc_general:
+  - id: RG-01
+    q: "What is the lock-in period for ELSS funds?"
+    expect_kind: not_found
+  - id: RG-02
+    q: "How do I download my capital gains statement?"
+    expect_kind: not_found
+  - id: RG-03
+    q: "How do I report mutual fund capital gains in my income tax return?"
+    expect_kind: not_found
+  - id: RG-04
+    q: "How do I complete my KYC?"
+    expect_kind: not_found
+  - id: RG-05
+    q: "What is the difference between direct and regular plans?"
+    expect_kind: not_found
+  - id: RG-06
+    q: "How do I change the bank mandate for my SIP?"
+    expect_kind: not_found
+  - id: RG-07
+    q: "What is a mutual fund?"
+    expect_kind: not_found
+  - id: RG-08
+    q: "What is the price of silver today?"
+    expect_kind: not_found
+  - id: RG-09
+    q: "What is the current repo rate?"
+    expect_kind: not_found
+  - id: RG-10
+    q: "How do I update my nominee?"
+    expect_kind: not_found
+  - id: RG-11
+    q: "What is the exit load of SBI Bluechip Fund?"
+    expect_kind: not_found
+  - id: RG-12
+    q: "What is the expense ratio of Axis Midcap Fund?"
+    expect_kind: not_found
+  - id: RG-13
+    q: "Who manages Parag Parikh Flexi Cap Fund?"
+    expect_kind: not_found
+
+near_miss:
+  - id: RN-01
+    q: "What is the expense ratio of the regular plan of HDFC Mid Cap Fund?"
+    expect_kind: not_found
+  - id: RN-02
+    q: "What was the expense ratio of HDFC Large Cap Fund last year?"
+    expect_kind: not_found
+  - id: RN-03
+    q: "What was the exit load of HDFC Small Cap Fund in 2019?"
+    expect_kind: not_found

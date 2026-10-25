@@ -1,0 +1,323 @@
+# The 5 supported schemes (P1.4, P1.5, arch §5.1).
+#
+# Everything here was read from the live Groww pages on 25 Oct 2026, not from memory.
+# Fact *values* are not stored here: they come from ingestion (Phase 2) so they can't go stale here.
+#
+# available_facts = facts that are actually shown on the page. Only these are answerable.
+# Applied defaults from docs/edge-case.md §15 (owner may override):
+#   D-01 NAV and fund size are answerable, quoting the page's "as of" date.
+#   D-02 tax rules are answerable, restating the page's rule only; never a personal calculation.
+#   D-03 ratings / badges / pros & cons are opinion and are excluded.
+#   D-12 other HDFC scheme names go in not_in_scope and are checked before alias matching.
+
+# Canonical fact keys -> wording used in the help / not_found templates (P4.3).
+fact_labels:
+  expense_ratio: expense ratio
+  exit_load: exit load
+  min_sip: minimum SIP amount
+  min_lumpsum: minimum first (lump-sum) investment
+  min_additional: minimum additional investment
+  risk_level: risk level (riskometer)
+  benchmark: benchmark
+  fund_managers: fund managers
+  fund_size: fund size (AUM)
+  nav: latest NAV
+  category: category
+  investment_objective: investment objective
+  stamp_duty: stamp duty
+  tax_implication: tax implication
+  holdings: portfolio holdings
+  fund_house: fund house details
+  registrar: registrar and transfer agent
+  custodian: custodian
+
+# Fact group (chunk) -> the "Covers:" line written after each chunk's context header (P3.0).
+# It describes the section in the words users ask with ("TER", "who runs", "RTA"), which closes
+# the vocabulary gap between questions and section labels (research §3.2). Rules:
+#   - never a fact value: no digits, no %, no names (a test checks);
+#   - changing the wording changes the vectors: re-run `mf-faq eval --retrieval-only` and
+#     re-derive the threshold (P3.6).
+fact_groups:
+  category_risk:
+    covers: "category, type of fund, risk level, riskometer, how risky the fund is"
+  nav:
+    covers: "NAV, net asset value, price of one unit"
+  fund_size:
+    covers: "fund size, AUM, assets under management, how big the fund is"
+  expense_ratio:
+    covers: "expense ratio, TER, total expense ratio, annual fee, yearly cost of holding the fund"
+  minimum_investments:
+    covers: "minimum investment, minimum SIP, lump sum, first investment, additional top-up, amount needed to start"
+  exit_load:
+    covers: "exit load, redemption charge, penalty or fee for withdrawing or selling units early"
+  stamp_duty:
+    covers: "stamp duty charged on purchase of units"
+  tax_implication:
+    covers: "tax, taxation of gains, capital gains tax, STCG, LTCG, short term and long term"
+  fund_management:
+    covers: "fund manager, who manages or runs the fund, portfolio manager, managing since, education and experience"
+  investment_objective:
+    covers: "investment objective, aim, goal, what the fund invests in"
+  benchmark:
+    covers: "benchmark index the fund is measured against"
+  holdings:
+    covers: "portfolio holdings, stocks, shares and companies the fund owns, weight of each holding"
+  fund_house:
+    covers: "fund house, AMC, asset management company, contact phone number and address"
+  custodian:
+    covers: "custodian bank that holds the fund's securities in safe custody"
+  registrar:
+    covers: "registrar and transfer agent, RTA"
+
+# Shown on the pages but deliberately NOT answerable. Phase 2 strips or skips these (P2.3, P2.4).
+excluded_page_content:
+  - item: "Returns: header '3Y annualised', return calculator, 'Returns and rankings' table, category average, rank"
+    reason: "CR-2 (no performance figures); stripped at ingestion"
+  - item: "NAV chart / NAV history"
+    reason: "CR-2; only the latest NAV with its date is kept (D-01)"
+  - item: "'Compare similar funds' peer table"
+    reason: "Peer comparison is performance data (CR-2)"
+  - item: "Groww 'Rating' (1-5) and pros/cons analysis"
+    reason: "Opinion, not fact (D-03, CR-1)"
+  - item: "Auto-generated 'About <scheme>' paragraph"
+    reason: "Wrong values: it gives the AMC's incorporation date (10 Dec 1999) as the scheme launch date and the AMC's total AUM as the fund's AUM"
+  - item: "Scheme launch date"
+    reason: "Only shown in the unreliable 'About' paragraph, so questions about it get not_found"
+  - item: "Lock-in"
+    reason: "Not shown on any of the 5 pages (none of them has a lock-in), so not_found (edge case SCP-09)"
+
+schemes:
+  - scheme_id: hdfc-large-cap
+    source_id: groww-hdfc-large-cap
+    name: "HDFC Large Cap Fund Direct Growth"      # page H1
+    short_name: "HDFC Large Cap Fund"
+    category: "Equity – Large Cap"                 # page header: "Equity Large Cap"
+    plan: "Direct – Growth"
+    aliases:
+      - hdfc large cap
+      - hdfc large cap fund
+      - hdfc largecap
+      - large cap fund
+      - large cap
+    available_facts: [expense_ratio, exit_load, min_sip, min_lumpsum, min_additional, risk_level,
+                      benchmark, fund_managers, fund_size, nav, category, investment_objective,
+                      stamp_duty, tax_implication, holdings, fund_house, registrar, custodian]
+
+  - scheme_id: hdfc-mid-cap
+    source_id: groww-hdfc-mid-cap
+    name: "HDFC Mid Cap Fund Direct Growth"
+    short_name: "HDFC Mid Cap Fund"
+    category: "Equity – Mid Cap"
+    plan: "Direct – Growth"
+    aliases:
+      - hdfc mid cap
+      - hdfc mid cap fund
+      - hdfc midcap
+      - mid cap fund
+      - midcap fund
+      - mid cap
+      - hdfc mid cap opportunities fund   # former name; linked on the Groww pages
+    available_facts: [expense_ratio, exit_load, min_sip, min_lumpsum, min_additional, risk_level,
+                      benchmark, fund_managers, fund_size, nav, category, investment_objective,
+                      stamp_duty, tax_implication, holdings, fund_house, registrar]
+
+  - scheme_id: hdfc-small-cap
+    source_id: groww-hdfc-small-cap
+    name: "HDFC Small Cap Fund Direct Growth"
+    short_name: "HDFC Small Cap Fund"
+    category: "Equity – Small Cap"
+    plan: "Direct – Growth"
+    aliases:
+      - hdfc small cap
+      - hdfc small cap fund
+      - hdfc smallcap
+      - small cap fund
+      - smallcap fund
+      - small cap
+    available_facts: [expense_ratio, exit_load, min_sip, min_lumpsum, min_additional, risk_level,
+                      benchmark, fund_managers, fund_size, nav, category, investment_objective,
+                      stamp_duty, tax_implication, holdings, fund_house, registrar, custodian]
+
+  - scheme_id: hdfc-multi-cap
+    source_id: groww-hdfc-multi-cap
+    name: "HDFC Multi Cap Fund Direct Growth"
+    short_name: "HDFC Multi Cap Fund"
+    category: "Equity – Multi Cap"
+    plan: "Direct – Growth"
+    aliases:
+      - hdfc multi cap
+      - hdfc multi cap fund
+      - hdfc multicap
+      - multi cap fund
+      - multicap fund
+      - multi cap
+    available_facts: [expense_ratio, exit_load, min_sip, min_lumpsum, min_additional, risk_level,
+                      benchmark, fund_managers, fund_size, nav, category, investment_objective,
+                      stamp_duty, tax_implication, holdings, fund_house, registrar]
+
+  - scheme_id: hdfc-silver-etf-fof
+    source_id: groww-hdfc-silver-etf-fof
+    name: "HDFC Silver ETF FoF Direct Growth"
+    short_name: "HDFC Silver ETF FoF"
+    category: "Commodities – Silver"               # page header: "Commodities Silver"
+    plan: "Direct – Growth"
+    aliases:
+      - hdfc silver etf fof
+      - hdfc silver fof
+      - silver etf fof
+      - silver fof
+      - silver fund of fund
+      - hdfc silver fund of fund
+      - silver etf fund of fund
+      - silver one                        # "the silver one" (edge case SCP-11)
+    available_facts: [expense_ratio, exit_load, min_sip, min_lumpsum, min_additional, risk_level,
+                      benchmark, fund_managers, fund_size, nav, category, investment_objective,
+                      stamp_duty, tax_implication, holdings, fund_house, registrar]
+
+# D-12: other HDFC schemes linked on the 5 Groww pages (25 Oct 2026). A message naming one of
+# these gets not_found, and the resolver checks this list before alias matching (P3.2), so e.g.
+# "HDFC Flexi Cap" never fuzzy-matches "Multi Cap" and "HDFC Silver ETF" never matches the FoF.
+not_in_scope:
+  - "HDFC Aggressive Hybrid Fund"
+  - "HDFC Arbitrage Fund"
+  - "HDFC Balanced Advantage Fund"
+  - "HDFC Banking & Financial Services Fund"
+  - "HDFC Banking and PSU Debt Fund"
+  - "HDFC BSE 500 Index Fund"
+  - "HDFC BSE India Sector Leaders Index Fund"
+  - "HDFC BSE REITS and Commercial Real Estate Index Fund"
+  - "HDFC BSE Sensex ETF"
+  - "HDFC BSE Sensex Index Fund"
+  - "HDFC Business Cycle Fund"
+  - "HDFC Children's Fund"
+  - "HDFC Conservative Hybrid Fund"
+  - "HDFC Consumption Fund"
+  - "HDFC Corporate Bond Fund"
+  - "HDFC Credit Risk Fund"
+  - "HDFC Defence Fund"
+  - "HDFC Developed World Overseas Equity Passive FoF"
+  - "HDFC Dynamic Term Fund"
+  - "HDFC ELSS Tax Saver Fund"
+  - "HDFC Equity Savings Fund"
+  - "HDFC Flexi Cap Fund"
+  - "HDFC Floating Interest Rates Fund"
+  - "HDFC Focused Fund"
+  - "HDFC Gold ETF Fund of Fund"
+  - "HDFC Gold Silver Passive FoF"
+  - "HDFC Housing Opportunities Fund"
+  - "HDFC Infrastructure Fund"
+  - "HDFC Innovation Fund"
+  - "HDFC Large & Mid Cap Fund"
+  - "HDFC Liquid Fund"
+  - "HDFC Long Term Fund"
+  - "HDFC Manufacturing Fund"
+  - "HDFC Medium Term Fund"
+  - "HDFC Medium to Long Term Fund"
+  - "HDFC MNC Fund"
+  - "HDFC Money Market Fund"
+  - "HDFC Multi Asset Allocation Fund"
+  - "HDFC NIFTY 100 Equal Weight Index Fund"
+  - "HDFC NIFTY 100 Index Fund"
+  - "HDFC NIFTY 50 ETF"
+  - "HDFC NIFTY 50 Index Fund"
+  - "HDFC NIFTY Midcap 150 Index Fund"
+  - "HDFC NIFTY Next 50 Index Fund"
+  - "HDFC NIFTY Realty Index Fund"
+  - "HDFC NIFTY100 Low Volatility 30 Index Fund"
+  - "HDFC NIFTY200 Momentum 30 Index Fund"
+  - "HDFC NIFTY50 Equal Weight Index Fund"
+  - "HDFC Nifty Auto Index Fund"
+  - "HDFC Nifty India Consumption Index Fund"
+  - "HDFC Nifty India Digital Index Fund"
+  - "HDFC Nifty LargeMidcap 250 Index Fund"
+  - "HDFC Nifty LargeMidcap250 Plus 8 13 Yr G Sec 70 30 Index Fund"
+  - "HDFC Nifty Metal ETF FoF"
+  - "HDFC Nifty Smallcap 250 Index Fund"
+  - "HDFC Nifty Top 20 Equal Weight Index Fund"
+  - "HDFC Nifty100 Quality 30 Index Fund"
+  - "HDFC Nifty500 Multicap 50:25:25 Index Fund"
+  - "HDFC Overnight Fund"
+  - "HDFC Pharma And Healthcare Fund"
+  - "HDFC Retirement Fund Equity Plan"
+  - "HDFC Retirement Fund Hybrid Debt Plan"
+  - "HDFC Retirement Fund Hybrid Equity Plan"
+  - "HDFC Short Term Fund"
+  - "HDFC Silver ETF"
+  - "HDFC Technology Fund"
+  - "HDFC Transportation and Logistics Fund"
+  - "HDFC Ultra Short Term Fund"
+  - "HDFC Ultra Short to Short Term Fund"
+  - "HDFC Value Fund"
+
+# P3.2: other fund houses. The resolver checks these first: generic aliases ("small cap fund",
+# "silver fof") score 100 against "SBI Small Cap Fund" or "Nippon India Silver ETF FoF"
+# (docs/research/phase3-data-research.md §3.7), which would be answered with HDFC figures.
+# A name counts as a fund house only when a fund word follows it ("SBI Small Cap Fund",
+# "Kotak MF") and not when a company word does ("ICICI Bank", "SBI Funds Management",
+# "Tata Motors"): those companies are in the holdings lists, which are answerable.
+other_amcs:
+  # On their own ("exit load of SBI?") they still stop a follow-up carrying over the thread's
+  # scheme. Longer names are matched first ("ICICI Prudential" before "ICICI", "Bajaj Finserv"
+  # before "Bajaj").
+  names:
+    - "360 ONE"
+    - "Aditya Birla Sun Life"
+    - "ABSL"
+    - "Axis"
+    - "Bajaj Finserv"
+    - "Bandhan"
+    - "Baroda BNP Paribas"
+    - "BNP Paribas"
+    - "Canara Robeco"
+    - "DSP"
+    - "Franklin Templeton"
+    - "Franklin India"
+    - "HSBC"
+    - "ICICI Prudential"
+    - "ICICI"
+    - "IDFC"
+    - "IIFL"
+    - "Invesco"
+    - "JM Financial"
+    - "Kotak"
+    - "Mahindra Manulife"
+    - "Mirae Asset"
+    - "Mirae"
+    - "Motilal Oswal"
+    - "Nippon India"
+    - "Nippon"
+    - "Parag Parikh"
+    - "PPFAS"
+    - "PGIM"
+    - "SBI"
+    - "Samco"
+    - "UTI"
+    - "WhiteOak"
+    - "White Oak"
+    - "Zerodha"
+  # Also everyday words, conglomerates or the source's own name ("Union Bank", "Tata Steel",
+  # "the Groww rating"): these count only with a fund word right after them.
+  need_fund_word:
+    - "Bajaj"
+    - "Baroda"
+    - "Birla"
+    - "Canara"
+    - "Edelweiss"
+    - "Franklin"
+    - "Groww"
+    - "Helios"
+    - "ITI"
+    - "LIC"
+    - "Mahindra"
+    - "Navi"
+    - "Old Bridge"
+    - "Quant"
+    - "Quantum"
+    - "Reliance"
+    - "Shriram"
+    - "Sundaram"
+    - "Tata"
+    - "Taurus"
+    - "Trust"
+    - "Union"
+    - "Unifi"

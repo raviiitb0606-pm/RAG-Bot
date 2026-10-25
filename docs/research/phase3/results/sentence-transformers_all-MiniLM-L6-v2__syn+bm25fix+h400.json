@@ -1,0 +1,503 @@
+{
+ "model": "sentence-transformers/all-MiniLM-L6-v2",
+ "variant": "syn+bm25fix+h400",
+ "dim": 384,
+ "max_seq": 256,
+ "load_s": 1.22,
+ "embed_corpus_s": 0.31,
+ "tok_max": 400,
+ "tok_holdings": [
+  92,
+  111,
+  170,
+  323,
+  353,
+  384,
+  386,
+  388,
+  389,
+  389,
+  391,
+  394,
+  394,
+  394,
+  397,
+  397,
+  398,
+  398,
+  400
+ ],
+ "truncated": [
+  [
+   "groww-hdfc-large-cap:holdings:1",
+   391
+  ],
+  [
+   "groww-hdfc-large-cap:holdings:2",
+   394
+  ],
+  [
+   "groww-hdfc-mid-cap:holdings:1",
+   386
+  ],
+  [
+   "groww-hdfc-mid-cap:holdings:2",
+   384
+  ],
+  [
+   "groww-hdfc-mid-cap:holdings:3",
+   397
+  ],
+  [
+   "groww-hdfc-mid-cap:holdings:4",
+   353
+  ],
+  [
+   "groww-hdfc-small-cap:holdings:1",
+   397
+  ],
+  [
+   "groww-hdfc-small-cap:holdings:2",
+   394
+  ],
+  [
+   "groww-hdfc-small-cap:holdings:3",
+   400
+  ],
+  [
+   "groww-hdfc-small-cap:holdings:4",
+   398
+  ],
+  [
+   "groww-hdfc-multi-cap:holdings:1",
+   394
+  ],
+  [
+   "groww-hdfc-multi-cap:holdings:2",
+   398
+  ],
+  [
+   "groww-hdfc-multi-cap:holdings:3",
+   389
+  ],
+  [
+   "groww-hdfc-multi-cap:holdings:4",
+   388
+  ],
+  [
+   "groww-hdfc-multi-cap:holdings:5",
+   389
+  ],
+  [
+   "groww-hdfc-multi-cap:holdings:6",
+   323
+  ]
+ ],
+ "n_chunks": 86,
+ "sets": {
+  "golden": {
+   "dense": {
+    "hit@1": 0.871,
+    "hit@4": 1.0,
+    "mrr": 0.93
+   },
+   "bm25": {
+    "hit@1": 1.0,
+    "hit@4": 1.0,
+    "mrr": 1.0
+   },
+   "rrf": {
+    "hit@1": 1.0,
+    "hit@4": 1.0,
+    "mrr": 1.0
+   },
+   "rrf_w": {
+    "hit@1": 1.0,
+    "hit@4": 1.0,
+    "mrr": 1.0
+   },
+   "n": 31
+  },
+  "golden_nofilter": {
+   "dense": {
+    "hit@1": 0.871,
+    "hit@4": 0.968,
+    "mrr": 0.91
+   },
+   "bm25": {
+    "hit@1": 0.258,
+    "hit@4": 0.806,
+    "mrr": 0.498
+   },
+   "rrf": {
+    "hit@1": 0.742,
+    "hit@4": 1.0,
+    "mrr": 0.866
+   },
+   "rrf_w": {
+    "hit@1": 0.806,
+    "hit@4": 1.0,
+    "mrr": 0.903
+   },
+   "n": 31
+  },
+  "paraphrase": {
+   "dense": {
+    "hit@1": 0.75,
+    "hit@4": 0.958,
+    "mrr": 0.833
+   },
+   "bm25": {
+    "hit@1": 0.771,
+    "hit@4": 0.896,
+    "mrr": 0.837
+   },
+   "rrf": {
+    "hit@1": 0.896,
+    "hit@4": 0.958,
+    "mrr": 0.93
+   },
+   "rrf_w": {
+    "hit@1": 0.896,
+    "hit@4": 0.958,
+    "mrr": 0.93
+   },
+   "n": 48
+  },
+  "paraphrase_nofilter": {
+   "dense": {
+    "hit@1": 0.625,
+    "hit@4": 0.896,
+    "mrr": 0.763
+   },
+   "bm25": {
+    "hit@1": 0.25,
+    "hit@4": 0.646,
+    "mrr": 0.445
+   },
+   "rrf": {
+    "hit@1": 0.75,
+    "hit@4": 0.958,
+    "mrr": 0.849
+   },
+   "rrf_w": {
+    "hit@1": 0.833,
+    "hit@4": 0.958,
+    "mrr": 0.899
+   },
+   "n": 48
+  },
+  "heldout": {
+   "dense": {
+    "hit@1": 0.7,
+    "hit@4": 0.933,
+    "mrr": 0.806
+   },
+   "bm25": {
+    "hit@1": 0.733,
+    "hit@4": 0.933,
+    "mrr": 0.808
+   },
+   "rrf": {
+    "hit@1": 0.833,
+    "hit@4": 0.967,
+    "mrr": 0.893
+   },
+   "rrf_w": {
+    "hit@1": 0.833,
+    "hit@4": 0.9,
+    "mrr": 0.882
+   },
+   "n": 30
+  },
+  "heldout_nofilter": {
+   "dense": {
+    "hit@1": 0.6,
+    "hit@4": 0.833,
+    "mrr": 0.729
+   },
+   "bm25": {
+    "hit@1": 0.067,
+    "hit@4": 0.7,
+    "mrr": 0.325
+   },
+   "rrf": {
+    "hit@1": 0.667,
+    "hit@4": 0.867,
+    "mrr": 0.773
+   },
+   "rrf_w": {
+    "hit@1": 0.7,
+    "hit@4": 0.833,
+    "mrr": 0.787
+   },
+   "n": 30
+  }
+ },
+ "holdings_deep_rank": [],
+ "threshold": {
+  "in_cos": {
+   "min": 0.609,
+   "p5": 0.69,
+   "median": 0.773
+  },
+  "ooc_cos": {
+   "max": 0.771,
+   "p95": 0.75,
+   "median": 0.613
+  },
+  "auroc": 0.924,
+  "best_tau": 0.65,
+  "best_acc": 0.906,
+  "tau_0.55": {
+   "in_kept": 1.0,
+   "ooc_rejected": 0.345
+  }
+ },
+ "ooc_scheme": [
+  {
+   "q": "Does HDFC Mid Cap Fund have a lock-in period?",
+   "top_cos": 0.629,
+   "top_bm25": 0.0,
+   "top1": "groww-hdfc-mid-cap:exit_load"
+  },
+  {
+   "q": "When was HDFC Mid Cap Fund launched?",
+   "top_cos": 0.717,
+   "top_bm25": 0.0,
+   "top1": "groww-hdfc-mid-cap:investment_objective"
+  },
+  {
+   "q": "What is the Groww rating of HDFC Multi Cap Fund?",
+   "top_cos": 0.771,
+   "top_bm25": 0.0,
+   "top1": "groww-hdfc-multi-cap:expense_ratio"
+  },
+  {
+   "q": "How can I get my account statement for HDFC Mid Cap Fund?",
+   "top_cos": 0.719,
+   "top_bm25": 0.0,
+   "top1": "groww-hdfc-mid-cap:fund_house"
+  },
+  {
+   "q": "What is the minimum redemption amount for HDFC Large Cap Fund?",
+   "top_cos": 0.728,
+   "top_bm25": 10.11,
+   "top1": "groww-hdfc-large-cap:minimum_investments"
+  },
+  {
+   "q": "What is the portfolio turnover ratio of HDFC Small Cap Fund?",
+   "top_cos": 0.764,
+   "top_bm25": 5.61,
+   "top1": "groww-hdfc-small-cap:holdings:5"
+  },
+  {
+   "q": "What is the Sharpe ratio of HDFC Multi Cap Fund?",
+   "top_cos": 0.728,
+   "top_bm25": 5.61,
+   "top1": "groww-hdfc-multi-cap:expense_ratio"
+  },
+  {
+   "q": "What is the standard deviation of HDFC Mid Cap Fund?",
+   "top_cos": 0.664,
+   "top_bm25": 0.0,
+   "top1": "groww-hdfc-mid-cap:benchmark"
+  },
+  {
+   "q": "Does HDFC Large Cap Fund have an IDCW option?",
+   "top_cos": 0.704,
+   "top_bm25": 0.0,
+   "top1": "groww-hdfc-large-cap:investment_objective"
+  },
+  {
+   "q": "How do I redeem my units of HDFC Small Cap Fund?",
+   "top_cos": 0.648,
+   "top_bm25": 4.16,
+   "top1": "groww-hdfc-small-cap:exit_load"
+  },
+  {
+   "q": "Which SIP dates are available for HDFC Large Cap Fund?",
+   "top_cos": 0.613,
+   "top_bm25": 4.39,
+   "top1": "groww-hdfc-large-cap:minimum_investments"
+  },
+  {
+   "q": "Can I set up an SWP in HDFC Silver ETF FoF?",
+   "top_cos": 0.573,
+   "top_bm25": 3.26,
+   "top1": "groww-hdfc-silver-etf-fof:minimum_investments"
+  },
+  {
+   "q": "What is the P/E ratio of HDFC Large Cap Fund?",
+   "top_cos": 0.729,
+   "top_bm25": 5.61,
+   "top1": "groww-hdfc-large-cap:expense_ratio"
+  },
+  {
+   "q": "What is the tracking error of HDFC Silver ETF FoF?",
+   "top_cos": 0.689,
+   "top_bm25": 0.0,
+   "top1": "groww-hdfc-silver-etf-fof:holdings"
+  },
+  {
+   "q": "How do I add a nominee to my HDFC Mid Cap Fund folio?",
+   "top_cos": 0.585,
+   "top_bm25": 0.0,
+   "top1": "groww-hdfc-mid-cap:fund_management"
+  },
+  {
+   "q": "Who is the CEO of the AMC of HDFC Small Cap Fund?",
+   "top_cos": 0.702,
+   "top_bm25": 3.44,
+   "top1": "groww-hdfc-small-cap:fund_house"
+  }
+ ],
+ "ooc_near_miss": [
+  {
+   "q": "What is the expense ratio of the regular plan of HDFC Mid Cap Fund?",
+   "top_cos": 0.829,
+   "top_bm25": 11.21,
+   "top1": "groww-hdfc-mid-cap:expense_ratio"
+  },
+  {
+   "q": "What was the expense ratio of HDFC Large Cap Fund last year?",
+   "top_cos": 0.816,
+   "top_bm25": 11.21,
+   "top1": "groww-hdfc-large-cap:expense_ratio"
+  },
+  {
+   "q": "What was the exit load of HDFC Small Cap Fund in 2019?",
+   "top_cos": 0.741,
+   "top_bm25": 6.39,
+   "top1": "groww-hdfc-small-cap:exit_load"
+  }
+ ],
+ "ooc_general": [
+  {
+   "q": "What is the lock-in period for ELSS funds?",
+   "top_cos": 0.394,
+   "top_bm25": 2.64,
+   "top1": "groww-hdfc-multi-cap:exit_load"
+  },
+  {
+   "q": "How do I download my capital gains statement?",
+   "top_cos": 0.332,
+   "top_bm25": 5.87,
+   "top1": "groww-hdfc-small-cap:tax_implication"
+  },
+  {
+   "q": "How do I report mutual fund capital gains in my income tax return?",
+   "top_cos": 0.42,
+   "top_bm25": 15.27,
+   "top1": "groww-hdfc-large-cap:holdings:3"
+  },
+  {
+   "q": "How do I complete my KYC?",
+   "top_cos": 0.161,
+   "top_bm25": 0.0,
+   "top1": "groww-hdfc-multi-cap:holdings:4"
+  },
+  {
+   "q": "What is the difference between direct and regular plans?",
+   "top_cos": 0.251,
+   "top_bm25": 4.83,
+   "top1": "groww-hdfc-mid-cap:category_risk"
+  },
+  {
+   "q": "How do I change the bank mandate for my SIP?",
+   "top_cos": 0.365,
+   "top_bm25": 4.39,
+   "top1": "groww-hdfc-large-cap:minimum_investments"
+  },
+  {
+   "q": "What is a mutual fund?",
+   "top_cos": 0.525,
+   "top_bm25": 2.71,
+   "top1": "groww-hdfc-large-cap:fund_management"
+  },
+  {
+   "q": "What is the price of silver today?",
+   "top_cos": 0.396,
+   "top_bm25": 4.01,
+   "top1": "groww-hdfc-silver-etf-fof:benchmark"
+  },
+  {
+   "q": "What is the current repo rate?",
+   "top_cos": 0.289,
+   "top_bm25": 4.36,
+   "top1": "groww-hdfc-large-cap:nav"
+  },
+  {
+   "q": "How do I update my nominee?",
+   "top_cos": 0.127,
+   "top_bm25": 0.0,
+   "top1": "groww-hdfc-mid-cap:fund_management"
+  },
+  {
+   "q": "What is the exit load of SBI Bluechip Fund?",
+   "top_cos": 0.559,
+   "top_bm25": 6.39,
+   "top1": "groww-hdfc-mid-cap:exit_load"
+  },
+  {
+   "q": "What is the expense ratio of Axis Midcap Fund?",
+   "top_cos": 0.657,
+   "top_bm25": 11.21,
+   "top1": "groww-hdfc-mid-cap:expense_ratio"
+  },
+  {
+   "q": "Who manages Parag Parikh Flexi Cap Fund?",
+   "top_cos": 0.593,
+   "top_bm25": 4.81,
+   "top1": "groww-hdfc-multi-cap:fund_management"
+  }
+ ],
+ "rrf_misses": [
+  [
+   "paraphrase",
+   "How much money is managed in HDFC Silver ETF FoF?",
+   "fund_size",
+   [
+    "groww-hdfc-silver-etf-fof:expense_ratio",
+    "groww-hdfc-silver-etf-fof:fund_management",
+    "groww-hdfc-silver-etf-fof:holdings",
+    "groww-hdfc-silver-etf-fof:minimum_investments"
+   ]
+  ],
+  [
+   "paraphrase",
+   "Where does HDFC Silver ETF FoF put its money?",
+   "investment_objective",
+   [
+    "groww-hdfc-silver-etf-fof:holdings",
+    "groww-hdfc-silver-etf-fof:stamp_duty",
+    "groww-hdfc-silver-etf-fof:nav",
+    "groww-hdfc-silver-etf-fof:benchmark"
+   ]
+  ],
+  [
+   "heldout",
+   "Total assets of HDFC Multi Cap Fund in crores?",
+   "fund_size",
+   [
+    "groww-hdfc-multi-cap:holdings:6",
+    "groww-hdfc-multi-cap:nav",
+    "groww-hdfc-multi-cap:holdings:1",
+    "groww-hdfc-multi-cap:fund_size"
+   ]
+  ],
+  [
+   "heldout",
+   "What experience does the HDFC Silver ETF FoF manager have?",
+   "fund_management",
+   [
+    "groww-hdfc-silver-etf-fof:holdings",
+    "groww-hdfc-silver-etf-fof:fund_management",
+    "groww-hdfc-silver-etf-fof:stamp_duty",
+    "groww-hdfc-silver-etf-fof:benchmark"
+   ]
+  ]
+ ],
+ "latency_ms_p50": 4.9,
+ "latency_ms_max": 5.3
+}

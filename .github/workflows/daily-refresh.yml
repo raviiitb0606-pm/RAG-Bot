@@ -1,0 +1,204 @@
+# Phase 7: re-ingest the 5 Groww pages every day at 10:00 IST and publish the new index.
+#
+#   restore state (data-latest) → unit tests → mf-faq ingest --report → publish on `published`
+#   → save the stale-streak status → fail on a gate failure or a stale alert → issue
+#
+# State lives in this (private) repository's releases: `data-<index_version>` per published
+# version (newest 14 kept, the rollback window) and `data-latest`, whose assets are replaced
+# on each publish. Servers pull it with `mf-faq pull-index`; this workflow never pushes to a
+# host. Only GITHUB_TOKEN is used: ingest and the retrieval gate make no LLM calls.
+# Runbook: docs/runbook.md ("Daily refresh").
+name: daily-refresh
+
+on:
+  schedule:
+    - cron: "30 4 * * *" # 10:00 IST (Asia/Kolkata, UTC+5:30, no DST); GitHub cron is UTC
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish the result (false = dry run: build and report only)"
+        type: boolean
+        default: true
+      restore:
+        description: "Restore the previous state from data-latest (false = start fresh)"
+        type: boolean
+        default: true
+
+concurrency:
+  group: daily-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write # releases
+  issues: write # the refresh-failed issue
+
+env:
+  MF_FAQ_EMBED_MODEL: BAAI/bge-small-en-v1.5
+  # Keep equal to config.py's default and the Dockerfile's build arg: an index only loads with
+  # the model revision it was built with.
+  MF_FAQ_EMBED_MODEL_REVISION: 5c38ec7c405ec4b44b94cc5a9bb96e735b38267a
+  MF_FAQ_LOG_LEVEL: INFO
+  PUBLISH: ${{ github.event_name == 'schedule' || inputs.publish }}
+  RESTORE: ${{ github.event_name == 'schedule' || inputs.restore }}
+  GH_TOKEN: ${{ github.token }}
+  KEEP_RELEASES: "14"
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      outcome: ${{ steps.ingest.outputs.outcome }}
+      summary: ${{ steps.ingest.outputs.summary }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install
+        run: uv sync --frozen
+
+      - name: Cache embedding model
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/huggingface
+          key: hf-${{ env.MF_FAQ_EMBED_MODEL }}-${{ env.MF_FAQ_EMBED_MODEL_REVISION }}
+
+      - name: Restore previous state
+        if: env.RESTORE == 'true'
+        run: |
+          if ! gh release view data-latest >/dev/null 2>&1; then
+            echo "No data-latest release yet: first run, starting from empty state."
+            exit 0
+          fi
+          mkdir -p state
+          gh release download data-latest --dir state \
+            --pattern refresh-state.tar.gz --pattern refresh-state.tar.gz.sha256
+          uv run mf-faq state import state/refresh-state.tar.gz
+          # The stale-streak tracker is saved after every run, published or not (P7.5).
+          gh release download data-latest --pattern refresh-status.json \
+            --output data/refresh_status.json --clobber || echo "No refresh-status.json yet."
+
+      # Parser and gate tests against the saved fixtures: a code bug fails before any fetch.
+      - name: Unit tests
+        run: uv run pytest tests/unit -q
+
+      - name: Refresh (fetch → parse → strip → chunk → embed → index)
+        id: ingest
+        run: |
+          set +e
+          uv run mf-faq ingest --report report.json --summary summary.md
+          code=$?
+          set -e
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          if [ -f report.json ]; then
+            {
+              echo "outcome=$(jq -r .outcome report.json)"
+              echo "index_version=$(jq -r .new.index_version report.json)"
+              echo "alerts=$(jq '.alerts | length' report.json)"
+            } >> "$GITHUB_OUTPUT"
+          else
+            echo "outcome=error" >> "$GITHUB_OUTPUT"
+            echo "## Daily refresh: \`error\` (exit $code, no report; see the log)" > summary.md
+          fi
+          cat summary.md >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "summary<<__MF_FAQ_SUMMARY__"
+            cat summary.md
+            echo "__MF_FAQ_SUMMARY__"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Publish the new index
+        if: steps.ingest.outputs.outcome == 'published' && env.PUBLISH == 'true'
+        env:
+          VERSION: ${{ steps.ingest.outputs.index_version }}
+        run: |
+          mkdir -p out
+          bundle="refresh-state-$VERSION.tar.gz"
+          uv run mf-faq state export "out/$bundle"
+          gh release create "data-$VERSION" "out/$bundle" "out/$bundle.sha256" \
+            --title "data-$VERSION" --notes-file summary.md --latest=false
+
+          # data-latest: the same bundle under fixed names, replaced in place.
+          cp "out/$bundle" out/refresh-state.tar.gz
+          (cd out && sha256sum refresh-state.tar.gz > refresh-state.tar.gz.sha256)
+          if gh release view data-latest >/dev/null 2>&1; then
+            gh release upload data-latest out/refresh-state.tar.gz \
+              out/refresh-state.tar.gz.sha256 --clobber
+            gh release edit data-latest --notes "Latest: data-$VERSION"
+          else
+            gh release create data-latest out/refresh-state.tar.gz \
+              out/refresh-state.tar.gz.sha256 --title data-latest \
+              --notes "Latest: data-$VERSION" --latest=false
+          fi
+
+          # Rollback window: keep the newest $KEEP_RELEASES versioned releases.
+          gh release list --limit 200 --json tagName,createdAt \
+            --jq '[.[] | select(.tagName | test("^data-[0-9]"))] | sort_by(.createdAt)
+                  | reverse | .[(env.KEEP_RELEASES | tonumber):] | .[].tagName' |
+            while read -r tag; do
+              echo "Deleting old release $tag"
+              gh release delete "$tag" --cleanup-tag --yes
+            done
+
+      - name: Save the stale-streak status
+        if: always() && env.PUBLISH == 'true' && hashFiles('data/refresh_status.json') != ''
+        run: |
+          if gh release view data-latest >/dev/null 2>&1; then
+            cp data/refresh_status.json refresh-status.json
+            gh release upload data-latest refresh-status.json --clobber
+          fi
+
+      - name: Fail on a gate failure or a stale alert
+        if: steps.ingest.outputs.exit_code != '0' || steps.ingest.outputs.alerts != '0'
+        env:
+          CODE: ${{ steps.ingest.outputs.exit_code }}
+          ALERTS: ${{ steps.ingest.outputs.alerts }}
+        run: |
+          echo "::error::refresh failed: exit code $CODE, $ALERTS stale alert(s); live index unchanged unless published"
+          exit 1
+
+  # Any failure (gate, fetch blocked, stale alert, job error, timeout) opens or updates one
+  # `refresh-failed` issue; the next good run closes it (P7.5). Dry runs don't touch issues.
+  alert:
+    needs: refresh
+    if: always() && (github.event_name == 'schedule' || inputs.publish)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      RESULT: ${{ needs.refresh.result }}
+      OUTCOME: ${{ needs.refresh.outputs.outcome }}
+      SUMMARY: ${{ needs.refresh.outputs.summary }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Open, update or close the refresh-failed issue
+        run: |
+          open=$(gh issue list --label refresh-failed --state open --json number --jq '.[0].number // empty')
+          if [ "$RESULT" = "success" ]; then
+            if [ -n "$open" ]; then
+              gh issue close "$open" --comment "Recovered: the run of $(date -u +%F) succeeded (\`${OUTCOME}\`). $RUN_URL"
+            fi
+            exit 0
+          fi
+          summary=${SUMMARY:-No report: the job failed or timed out before ingest finished.}
+          body=$(cat <<EOF
+          Daily refresh **${RESULT}** (outcome \`${OUTCOME:-none}\`). The live index is unchanged unless the report says \`published\`.
+
+          Run: ${RUN_URL}
+
+          ${summary}
+          EOF
+          )
+          if [ -n "$open" ]; then
+            gh issue comment "$open" --body "$body"
+          else
+            gh label create refresh-failed --color B60205 \
+              --description "Daily refresh failed (Phase 7)" 2>/dev/null || true
+            gh issue create --title "Daily refresh failed" --label refresh-failed --body "$body"
+          fi

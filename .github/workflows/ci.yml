@@ -1,0 +1,69 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install
+        run: uv sync --frozen
+
+      - name: Lint
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      # actionlint (+ shellcheck for the run: scripts) on every workflow, P7 tests.
+      - name: Lint workflows
+        run: uvx --with shellcheck-py==0.11.0.1 --from actionlint-py==1.7.12.25 actionlint
+
+      - name: Tests
+        run: uv run pytest -q
+
+  # The Railway image (docs/deployment-plan.md D3): builds, has CPU torch, and loads the baked
+  # model with no network access.
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build
+        run: docker build -t mf-faq:ci .
+
+      - name: Smoke test
+        run: |
+          docker image ls mf-faq:ci
+          docker run --rm --network none mf-faq:ci python -c "
+          import torch
+          from mf_faq.config import get_settings
+          from mf_faq.ingest.index import embedder_from
+          assert not torch.version.cuda, torch.version.cuda
+          e = embedder_from(get_settings())
+          s = get_settings()
+          assert e.revision == s.embed_model_revision, (e.revision, s.embed_model_revision)
+          print('ok', torch.__version__, e.model_name, e.revision, e.dimension)
+          "
+          # An empty volume and no GitHub settings must fail fast, not serve without an index.
+          if docker run --rm --network none mf-faq:ci; then
+            echo "::error::container started without an index"; exit 1
+          fi

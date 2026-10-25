@@ -1,0 +1,55 @@
+# The RAG corpus: exactly these 5 Groww scheme pages (implementation-plan §0, P1.2).
+# Every url must be in ALLOWED_URLS (src/mf_faq/ingest/registry.py). Nothing else is ever added.
+#
+# P1.3 findings (checked 25 Oct 2026, plain HTTP GET, no JavaScript):
+# - All 5 pages are server-rendered (Next.js). The visible HTML holds every fact section, and the
+#   same data is embedded as JSON in <script id="__NEXT_DATA__"> at props.pageProps.mfServerSideData.
+# - That JSON has stale or wrong fields, so the parser (P2.3) must prefer the VISIBLE sections or
+#   the JSON fields that match them:
+#     * top-level `fund_manager` is stale (e.g. "Prashant Jain" for Large Cap); use `fund_manager_details`
+#       (which is what the page's "Fund management" section shows);
+#     * `nfo_risk` (e.g. "Moderately High") differs from the risk the page shows ("Very High"); use `risk`;
+#     * `category_info.sub_type` says "Contra" for all 4 equity funds; use `category` + `sub_category`.
+# - The JSON also carries returns (`stats`, `return_stats`, `sip_return`, `simple_return`,
+#   `peerComparison`, `analysis`): all must be dropped (P2.4).
+# - playwright is NOT needed.
+
+- id: groww-hdfc-large-cap
+  url: https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+  publisher: GROWW
+  doc_type: scheme_page
+  scheme_id: hdfc-large-cap
+  title: "HDFC Large Cap Fund – Direct Growth (Groww)"
+  notes: "rendering: server HTML + embedded __NEXT_DATA__ JSON; no JS needed. HTTP 200 on 25 Oct 2026"
+
+- id: groww-hdfc-mid-cap
+  url: https://groww.in/mutual-funds/hdfc-mid-cap-fund-direct-growth
+  publisher: GROWW
+  doc_type: scheme_page
+  scheme_id: hdfc-mid-cap
+  title: "HDFC Mid Cap Fund – Direct Growth (Groww)"
+  notes: "rendering: server HTML + embedded __NEXT_DATA__ JSON; no JS needed. HTTP 200 on 25 Oct 2026"
+
+- id: groww-hdfc-small-cap
+  url: https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+  publisher: GROWW
+  doc_type: scheme_page
+  scheme_id: hdfc-small-cap
+  title: "HDFC Small Cap Fund – Direct Growth (Groww)"
+  notes: "rendering: server HTML + embedded __NEXT_DATA__ JSON; no JS needed. HTTP 200 on 25 Oct 2026"
+
+- id: groww-hdfc-multi-cap
+  url: https://groww.in/mutual-funds/hdfc-multi-cap-fund-direct-growth
+  publisher: GROWW
+  doc_type: scheme_page
+  scheme_id: hdfc-multi-cap
+  title: "HDFC Multi Cap Fund – Direct Growth (Groww)"
+  notes: "rendering: server HTML + embedded __NEXT_DATA__ JSON; no JS needed. HTTP 200 on 25 Oct 2026"
+
+- id: groww-hdfc-silver-etf-fof
+  url: https://groww.in/mutual-funds/hdfc-silver-etf-fof-direct-growth
+  publisher: GROWW
+  doc_type: scheme_page
+  scheme_id: hdfc-silver-etf-fof
+  title: "HDFC Silver ETF FoF – Direct Growth (Groww)"
+  notes: "rendering: server HTML + embedded __NEXT_DATA__ JSON; no JS needed. HTTP 200 on 25 Oct 2026. First request got a one-off 404; 200 on retry, so fetch retries matter"
